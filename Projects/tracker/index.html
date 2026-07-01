@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f7f6; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    th { background-color: #6366f1; color: white; text-align: left; padding: 15px; }
+    td { padding: 12px 15px; border-bottom: 1px solid #ddd; }
+    tr:nth-child(even) { background-color: #f9fafb; }
+    .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold; }
+    .done { background-color: #d1fae5; color: #065f46; }
+    .pending { background-color: #fee2e2; color: #991b1b; }
+</style>
+	</head>
+
+	<body>
+    
+		<h1>Todo List</h1>
+    
+		<table border="1">
+        	<tr>
+            		<th>ID</th>
+            		<th>Title</th>
+            		<th>Status</th>
+        	</tr>
+        	{{range .}}
+        	<tr>
+            		<td>{{.ID}}</td>
+            		<td>{{.Title}}</td>
+            		<td>{{if .Completed}} ✅ Done {{else}} ❌ Pending {{end}}</td>
+        	</tr>
+        	{{end}}
+    		</table>
+	</body>
+</html>
+

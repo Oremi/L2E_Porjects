@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>{{.Artist.Name}} - Details</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+    <script src='/static/main.js'></script>
+</head>
+<body>
+    <a href="/">Back to Home</a>
+    <div class="artist-detail">
+        <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+        <h1>{{.Artist.Name}}</h1>
+        <p><strong>Members:</strong> {{range .Artist.Members}}{{.}} {{end}}</p>
+        <p><strong>Creation Date:</strong> {{.Artist.CreationDate}}</p>
+        <p><strong>First Album:</strong> {{.Artist.FirstAlbum}}</p>
+        
+        <h2>Concert Dates and Locations</h2>
+        <ul>
+            {{range $location, $dates := .Relations.DatesLocations}}
+            <li><strong>{{$location}}:</strong> {{range $dates}}{{.}} {{end}}</li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

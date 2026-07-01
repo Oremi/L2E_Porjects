@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+    <script src='/static/main.js'></script>
+</head>
+<body>
+    
+    {{range .}}
+    <div class="card">
+        <img src="{{.Image}}" alt="{{.Name}}">
+        <h3>{{.Name}}</h3>
+        <a href="/artist?id={{.ID}}">View Details</a>
+    </div>
+{{end}}
+
+</body>
+</html>

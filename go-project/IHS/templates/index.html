@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 Banking App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            padding: 2rem;
+            color: #1a1a2e;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #4a6cf7;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .card {
+            background: #f8f9fc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+        }
+        .card h3 {
+            margin-bottom: 1rem;
+            color: #2d3748;
+            font-size: 1.2rem;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .form-row label {
+            font-weight: 600;
+            min-width: 100px;
+        }
+        .form-row input, .form-row select {
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            flex: 1 1 150px;
+            background: white;
+        }
+        .form-row input:focus, .form-row select:focus {
+            outline: 2px solid #4a6cf7;
+            border-color: transparent;
+        }
+        button {
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #3a56d4;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: #edf2f7;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        tr:hover {
+            background: #f7fafc;
+        }
+        .badge {
+            background: #4a6cf7;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #718096;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .form-row { flex-direction: column; align-items: stretch; }
+            .form-row label { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Banking Management</h1>
+
+    <!-- Display success/error messages from URL query parameters -->
+    {{if .Message}}
+        <div class="alert success">{{.Message}}</div>
+    {{end}}
+    {{if .Error}}
+        <div class="alert error">{{.Error}}</div>
+    {{end}}
+
+    <!-- -------- Add Customer -------- -->
+    <div class="card">
+        <h3>Add New Customer</h3>
+        <form action="/add" method="POST">
+            <div class="form-row">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="form-row">
+                <label for="deposit">Initial Deposit (₦)</label>
+                <input type="number" id="deposit" name="deposit" placeholder="0.00" step="0.01" min="0" required>
+            </div>
+            <div class="form-row">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- -------- Deposit / Withdraw -------- -->
+    <div class="card">
+        <h3>Deposit or Withdraw</h3>
+        <form action="/transaction" method="POST">
+            <div class="form-row">
+                <label for="cust_id">Customer ID</label>
+                <input type="number" id="cust_id" name="id" placeholder="ID" required>
+            </div>
+            <div class="form-row">
+                <label for="amount">Amount (₦)</label>
+                <input type="number" id="amount" name="amount" placeholder="0.00" step="0.01" min="0.01" required>
+            </div>
+            <div class="form-row">
+                <label for="tx_type">Action</label>
+                <select id="tx_type" name="type">
+                    <option value="deposit">Deposit</option>
+                    <option value="withdraw">Withdraw</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- -------- Transfer -------- -->
+    <div class="card">
+        <h3>Transfer Money</h3>
+        <form action="/transfer" method="POST">
+            <div class="form-row">
+                <label for="from_id">From (ID)</label>
+                <input type="number" id="from_id" name="from_id" placeholder="Sender ID" required>
+            </div>
+            <div class="form-row">
+                <label for="to_id">To (ID)</label>
+                <input type="number" id="to_id" name="to_id" placeholder="Receiver ID" required>
+            </div>
+            <div class="form-row">
+                <label for="transfer_amount">Amount (₦)</label>
+                <input type="number" id="transfer_amount" name="amount" placeholder="0.00" step="0.01" min="0.01" required>
+            </div>
+            <div class="form-row">
+                <button type="submit">Transfer</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- -------- Customer List -------- -->
+    <h2>Customer Accounts</h2>
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Balance (₦)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Customers}}
+                <tr>
+                    <td><span class="badge">{{.ID}}</span></td>
+                    <td>{{.Name}}</td>
+                    <td>{{printf "%.2f" .AccountBalance}}</td>
+                </tr>
+                {{else}}
+                <tr>
+                    <td colspan="3" style="text-align:center; color:#718096;">No customers yet.</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        Powered by Go &nbsp;|&nbsp; Snapshot saved to <code>bank_snapshot.json</code>
+    </div>
+</div>
+
+</body>
+</html>

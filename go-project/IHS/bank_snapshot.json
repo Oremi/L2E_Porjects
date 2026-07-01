@@ -1,0 +1,29 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "account_number": "",
+      "name": "Alice",
+      "account_balance": 1000
+    },
+    {
+      "id": 2,
+      "account_number": "",
+      "name": "Bob",
+      "account_balance": 1500
+    },
+    {
+      "id": 3,
+      "account_number": "",
+      "name": "randy Cash",
+      "account_balance": 30000
+    },
+    {
+      "id": 7,
+      "account_number": "7408-5465",
+      "name": "Godwin Omolei",
+      "account_balance": 500
+    }
+  ],
+  "next_id": 8
+}

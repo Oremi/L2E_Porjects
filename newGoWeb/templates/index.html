@@ -1,0 +1,31 @@
+{{template "header" .}}
+<body>
+	<header>
+		<h1><a href='/'>ASCII-ART-WEB</a></h1>
+	</header>
+	<main>
+	<form action="/ascii-art" method="post">
+		
+		<label>Text To Convert
+			<br>
+			<textarea name="text" placeholder="Enter Your Text" required></textarea>
+		</label>
+		<br>
+
+		<label>Select Banner
+			<br>
+			<input type="radio" name="banner" value="standard" checked>Standard
+			<input type="radio" name="banner" value="shadow">Shadow
+			<input type="radio" name="banner" value="thinkertoy">thinkertoy
+			<input type="radio" name="banner" value="invalid banner">invalid banner
+		</label>
+		<br><br>
+		
+		<button type="submit">Generate Ascii</button>
+	</form>
+
+	<hr>
+	<pre style="font-family: monospace; white-space: pre; background: #f0f0f0; color: #2b2b23; padding: 10px;">{{if .Result}} {{.Result}} {{else}}Your Ascii Art Will Appear Here{{end}}</pre>
+	</main>
+</body>
+</html>
